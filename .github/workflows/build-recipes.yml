@@ -1,0 +1,77 @@
+name: Build static recipe database
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 18 * * 0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-static-recipes
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build verified recipes.json
+        run: python build_recipes.py
+
+      - name: Validate database
+        run: |
+          python - <<'PY'
+          import json
+
+          with open("recipes.json", encoding="utf-8") as f:
+              recipes = json.load(f)
+
+          if not isinstance(recipes, list) or not recipes:
+              raise SystemExit("recipes.json is empty or invalid")
+
+          required = {"id", "title", "url", "protein", "ingredients"}
+
+          for i, recipe in enumerate(recipes):
+              missing = required - set(recipe)
+              if missing:
+                  raise SystemExit(
+                      f"Recipe {i} is missing fields: {sorted(missing)}"
+                  )
+
+              if not recipe["ingredients"]:
+                  raise SystemExit(
+                      f"Recipe {recipe['title']} has no ingredients"
+                  )
+
+          print(f"Validated {len(recipes)} recipes")
+          PY
+
+      - name: Commit updated database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add recipes.json
+
+          if git diff --cached --quiet; then
+            echo "recipes.json is already up to date"
+          else
+            git commit -m "Build verified static recipe database"
+            git push
+          fi

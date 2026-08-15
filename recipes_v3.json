@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "source": "RecipeTin Eats",
+  "apiBase": "https://www.recipetineats.com/wp-json/wp/v2/posts",
+  "targetRecipeCount": 600,
+  "pageSize": 100,
+  "maxPages": 20,
+  "excludeTerms": [
+    "cake",
+    "cookie",
+    "cookies",
+    "brownie",
+    "brownies",
+    "dessert",
+    "pudding",
+    "muffin",
+    "muffins",
+    "cupcake",
+    "cupcakes",
+    "cheesecake",
+    "tart",
+    "tarts",
+    "pie crust",
+    "ice cream",
+    "sorbet",
+    "frosting",
+    "icing",
+    "sweet slice",
+    "donut",
+    "doughnut",
+    "macaron",
+    "meringue",
+    "trifle",
+    "candy",
+    "fudge",
+    "pavlova",
+    "creme brulee",
+    "cr\u00e8me br\u00fbl\u00e9e",
+    "sweet bread"
+  ],
+  "proteinOrder": [
+    "chicken",
+    "pork",
+    "fish",
+    "vegetarian",
+    "lamb"
+  ],
+  "proteinTerms": {
+    "chicken": [
+      "chicken",
+      "turkey"
+    ],
+    "pork": [
+      "pork",
+      "bacon",
+      "ham",
+      "sausage",
+      "prosciutto",
+      "chorizo"
+    ],
+    "fish": [
+      "fish",
+      "salmon",
+      "tuna",
+      "cod",
+      "barramundi",
+      "snapper",
+      "trout",
+      "prawn",
+      "shrimp",
+      "seafood"
+    ],
+    "lamb": [
+      "lamb",
+      "mutton"
+    ],
+    "vegetarian": [
+      "vegetarian",
+      "lentil",
+      "chickpea",
+      "tofu",
+      "halloumi",
+      "ricotta",
+      "mushroom",
+      "eggplant",
+      "zucchini",
+      "cauliflower",
+      "broccoli",
+      "bean"
+    ]
+  }
+}

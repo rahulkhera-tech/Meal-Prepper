@@ -225,7 +225,7 @@ $("clearHistory").onclick=()=>{localStorage.removeItem(HISTORY_KEY);generate()};
     generate();
   }catch(e){
     $("dbStatus").textContent="Recipe database failed to load";
-    $("grid").innerHTML=`<section class="card" style="padding:18px"><strong>Could not load the recipe database.</strong><p>${e.message}</p><p class="small">Keep index_v3.html and recipes_v3.json together.</p></section>`;
+    $("grid").innerHTML=`<section class="card" style="padding:18px"><strong>Could not load the recipe database.</strong><p>${e.message}</p><p class="small">Keep index.html and recipes_v3.json together.</p></section>`;
   }
 })();
 </script>
